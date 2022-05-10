@@ -15,15 +15,22 @@ class MainViewModel(private val listOfUnits: ListOfUnits) : ViewModel() {
 
     val list = listOfUnits.list()
 
-    private val _leftChosenUnit = MutableLiveData<String>()
+    private var _leftChosenUnit = MutableLiveData<String>()
     val leftChosenUnit: LiveData<String> = _leftChosenUnit
 
     private val _rightChosenUnit = MutableLiveData<String>()
-    val rightChosenUnit: LiveData<String> = _leftChosenUnit
+    val rightChosenUnit: LiveData<String> = _rightChosenUnit
 
     private val _result = MutableLiveData<String>()
     val result: LiveData<String> = _result
 
+    fun changeLeftUnit(choice: String) {
+        _leftChosenUnit.value = choice
+    }
+
+    fun changeRightUnit(choice: String) {
+        _rightChosenUnit.value = choice
+    }
 }
 
 

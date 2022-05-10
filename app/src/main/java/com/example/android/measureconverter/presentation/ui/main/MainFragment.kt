@@ -34,13 +34,28 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = UnitsAdapter(requireContext(), viewModel.list)
+        val adapterOne = UnitsAdapter(
+            context = requireContext(),
+            listOfUnits = viewModel.list,
+            clickListener = { it -> viewModel.changeLeftUnit(it.nameForRecyclerView)
+        } )
+        val adapterTwo = UnitsAdapter(
+            context = requireContext(),
+            listOfUnits = viewModel.list,
+            clickListener = { it -> viewModel.changeRightUnit(it.nameForRecyclerView)
+        } )
         with(binding) {
-            recyclerViewLeft.adapter = adapter
+            recyclerViewLeft.adapter = adapterOne
             recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context)
-            recyclerViewRight.adapter = adapter
+            recyclerViewRight.adapter = adapterTwo
             recyclerViewRight.layoutManager = LinearLayoutManager(this@MainFragment.context)
         }
+        viewModel.leftChosenUnit.observe(this.viewLifecycleOwner) {
+                it -> binding.textViewWithUnitOne.text = it }
 
-    }
+        viewModel.rightChosenUnit.observe(this.viewLifecycleOwner) {
+                item -> binding.textViewWithUnitTwo.text = item }
+        }
+
+
 }

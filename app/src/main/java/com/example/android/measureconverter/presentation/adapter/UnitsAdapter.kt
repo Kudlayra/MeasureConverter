@@ -14,7 +14,7 @@ import com.example.android.measureconverter.data.LengthUnit
 import com.example.android.measureconverter.presentation.ui.main.MainViewModel
 import com.example.android.measureconverter.presentation.ui.main.MainViewModelFactory
 
-class UnitsAdapter(private val context: Context, private val listOfUnits: List<LengthUnit>): RecyclerView.Adapter<UnitsAdapter.UnitsAdapterViewHolder>() {
+class UnitsAdapter(private val context: Context, private val listOfUnits: List<LengthUnit>, private val clickListener: (LengthUnit) -> Unit): RecyclerView.Adapter<UnitsAdapter.UnitsAdapterViewHolder>() {
 
     var toast: Toast? = null // variable for toast message in order to cancel Toast
 
@@ -34,6 +34,7 @@ class UnitsAdapter(private val context: Context, private val listOfUnits: List<L
             toast = Toast.makeText(context, item.nameForRecyclerView, Toast.LENGTH_SHORT)
             toast?.view
             toast?.show()
+            clickListener(item)
         }
     }
 
