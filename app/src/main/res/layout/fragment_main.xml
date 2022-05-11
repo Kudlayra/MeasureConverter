@@ -79,13 +79,18 @@
         app:layout_constraintEnd_toStartOf="@+id/recyclerViewRight"
         app:layout_constraintStart_toEndOf="@+id/recyclerViewLeft"
         app:layout_constraintTop_toBottomOf="@+id/textViewWithUnitTwo"
-        app:endIconMode="clear_text">
+        app:endIconMode="clear_text"
+        app:boxStrokeColor="@color/black"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:textColorHint="@color/black"
             android:id="@+id/inputAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:text="1"
+            android:textSize="35sp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
