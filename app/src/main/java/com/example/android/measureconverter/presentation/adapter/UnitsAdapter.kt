@@ -13,7 +13,7 @@ import com.example.android.measureconverter.data.LengthUnit
 
 
 class UnitsAdapter(private val context: Context,
-                   private val listOfUnits: List<LengthUnit>,
+                   private val listOfUnits: List<Unit>,
                    private val clickListener: (LengthUnit) -> Unit
     ): RecyclerView.Adapter<UnitsAdapter.UnitsAdapterViewHolder>() {
 
@@ -33,7 +33,7 @@ class UnitsAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: UnitsAdapterViewHolder, position: Int) {
         val item = listOfUnits[position]
-        holder.textView.text = item.shortName
+        holder.textView.text = item.
         holder.cardView.isActivated = selectedPosition == position
         holder.itemView.setOnClickListener {
             selectedPosition = position
