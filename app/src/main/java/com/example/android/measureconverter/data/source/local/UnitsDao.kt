@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface UnitsDao {
 
     @Query("SELECT * FROM Units WHERE type = :unitType")
-    fun getAll(unitType: String): Flow<List<Units>>
+    fun getAll(unitType: String): List<Units>
 
     @Insert
     fun addNewUnit(unit: Units)

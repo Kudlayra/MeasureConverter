@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.android.UnitConverterApp
 import com.example.android.measureconverter.data.ListOfUnits
+import com.example.android.measureconverter.data.source.local.UnitsDao
 import com.example.android.measureconverter.databinding.FragmentMainBinding
 import com.example.android.measureconverter.presentation.adapter.UnitsAdapter
 
@@ -17,18 +20,22 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by activityViewModels {
+        MainViewModelFactory(
+            (activity?.application as UnitConverterApp).database.unitsDao()
+        )
+    }
 
     companion object {
         fun newInstance() = MainFragment()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this, MainViewModelFactory()).get(MainViewModel::class.java)
         return binding.root
     }
 
@@ -37,12 +44,12 @@ class MainFragment : Fragment() {
         val adapterOne = UnitsAdapter(
             context = requireContext(),
             listOfUnits = viewModel.list,
-            clickListener = { it -> viewModel.changeLeftUnit(it.nameForRecyclerView)
+            clickListener = { it -> viewModel.changeLeftUnit(it.pluralName)
         } )
         val adapterTwo = UnitsAdapter(
             context = requireContext(),
             listOfUnits = viewModel.list,
-            clickListener = { it -> viewModel.changeRightUnit(it.nameForRecyclerView)
+            clickListener = { it -> viewModel.changeRightUnit(it.pluralName)
         } )
         with(binding) {
             recyclerViewLeft.adapter = adapterOne

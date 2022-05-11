@@ -10,11 +10,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.measureconverter.R
 import com.example.android.measureconverter.data.LengthUnit
+import com.example.android.measureconverter.data.source.local.Units
 
 
 class UnitsAdapter(private val context: Context,
-                   private val listOfUnits: List<Unit>,
-                   private val clickListener: (LengthUnit) -> Unit
+                   private val listOfUnits: List<Units>,
+                   private val clickListener: (Units) -> Unit
     ): RecyclerView.Adapter<UnitsAdapter.UnitsAdapterViewHolder>() {
 
     var toast: Toast? = null // variable for toast message in order to cancel Toast
@@ -33,12 +34,12 @@ class UnitsAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: UnitsAdapterViewHolder, position: Int) {
         val item = listOfUnits[position]
-        holder.textView.text = item.
+        holder.textView.text = item.shortUnitName
         holder.cardView.isActivated = selectedPosition == position
         holder.itemView.setOnClickListener {
             selectedPosition = position
             toast?.cancel()
-            toast = Toast.makeText(context, item.nameForRecyclerView, Toast.LENGTH_SHORT)
+            toast = Toast.makeText(context, item.unitName, Toast.LENGTH_SHORT)
             toast?.show()
             clickListener(item)
             notifyItemChanged(lastSelectedPosition)
