@@ -70,23 +70,22 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFieldForInput"
         android:layout_width="0dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="wrap_content"
         android:hint="@string/enter_amount"
-        android:textColorHint="@color/background"
+        app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/recyclerViewRight"
         app:layout_constraintStart_toEndOf="@+id/recyclerViewLeft"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWithUnitTwo">
+        app:layout_constraintTop_toBottomOf="@+id/textViewWithUnitTwo"
+        app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputAmount"
             android:layout_width="match_parent"
-            android:textColor="@color/background"
-            android:textColorLink="@color/background"
-            android:layout_height="match_parent"
-            android:background="@color/light"
-            android:inputType="number|numberDecimal" />
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

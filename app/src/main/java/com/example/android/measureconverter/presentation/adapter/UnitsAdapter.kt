@@ -19,6 +19,7 @@ class UnitsAdapter(private val context: Context,
 
     var toast: Toast? = null // variable for toast message in order to cancel Toast
     var selectedPosition = 0 // variable for single item selection
+    var lastSelectedPosition = 0
 
     class UnitsAdapterViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
         val textView = view.findViewById<TextView>(R.id.textRecyclerView)
@@ -40,7 +41,9 @@ class UnitsAdapter(private val context: Context,
             toast = Toast.makeText(context, item.nameForRecyclerView, Toast.LENGTH_SHORT)
             toast?.show()
             clickListener(item)
-            notifyItemRangeChanged(0, listOfUnits.size)
+            notifyItemChanged(lastSelectedPosition)
+            notifyItemChanged(position)
+            lastSelectedPosition = position
         }
     }
 
