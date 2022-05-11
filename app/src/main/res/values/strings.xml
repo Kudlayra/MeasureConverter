@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MeasureConverter</string>
+    <string name="enter_amount">ENTER AMOUNT</string>
 </resources>

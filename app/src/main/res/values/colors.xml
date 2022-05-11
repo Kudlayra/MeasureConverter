@@ -10,4 +10,5 @@
     <color name="background">#1b4332</color>
     <color name="itemBackground">#52b788</color>
     <color name="textColor">#081c15</color>
+    <color name="light">#D8F3DC</color>
 </resources>
