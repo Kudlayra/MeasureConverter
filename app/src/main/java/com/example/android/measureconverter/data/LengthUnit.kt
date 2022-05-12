@@ -1,6 +1,6 @@
 package com.example.android.measureconverter.data
 
-enum class LengthUnit (var nameForRecyclerView: String, var count: Double, var nameForRecyclerView2: String, val shortName: String) {
+enum class LengthUnit (var unitName: String, var convertingData: Double, var pluralName: String, val shortUnitName: String) {
     KILOMETER("kilometers", 1000.0, "kilometer", "km"),
     METER("meters", 1.0, "meter", "m"),
     CENTIMETER("centimeters", 0.01, "centimeter", "cm"),

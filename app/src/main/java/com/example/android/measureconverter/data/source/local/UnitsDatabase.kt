@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Units::class], version = 1, exportSchema = false)
+@Database(entities = arrayOf(Units::class), version = 1)
 abstract class UnitsDatabase : RoomDatabase() {
 
     abstract fun unitsDao(): UnitsDao
@@ -20,14 +20,13 @@ abstract class UnitsDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context,
                     UnitsDatabase::class.java,
-                    "units_database")
-                    .createFromAsset("database/converter_app_database.db")
+                    "app_database")
+                    .createFromAsset("database/units.db")
                     .build()
                 INSTANCE = instance
 
                 instance
             }
         }
+        }
     }
-
-}

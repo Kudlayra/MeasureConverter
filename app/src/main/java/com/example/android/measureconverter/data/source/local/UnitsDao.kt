@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UnitsDao {
 
-    @Query("SELECT * FROM Units WHERE type = :unitType")
-    fun getAll(unitType: String): List<Units>
+    @Query("SELECT * FROM units")
+    fun getAll(): Flow<List<Units>>
 
     @Insert
     fun addNewUnit(unit: Units)
 
-    @Query("DELETE FROM Units WHERE id = :id")
+    @Query("DELETE FROM units WHERE id = :id")
     fun deleteUnit(id: String)
 
 }

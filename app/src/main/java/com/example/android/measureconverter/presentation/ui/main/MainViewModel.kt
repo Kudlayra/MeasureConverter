@@ -1,20 +1,15 @@
 package com.example.android.measureconverter.presentation.ui.main
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.android.measureconverter.data.LengthUnit
-import com.example.android.measureconverter.data.ListOfUnits
+import com.example.android.measureconverter.data.source.local.Units
 import com.example.android.measureconverter.data.source.local.UnitsDao
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import java.util.concurrent.Flow
+import kotlinx.coroutines.flow.Flow
 
-class MainViewModel(private val listOfUnits: UnitsDao) : ViewModel() {
+class MainViewModel(private val unitsDao: UnitsDao) : ViewModel() {
 
-    val list = listOfUnits.getAll("length")
+    fun fullList(): Flow<List<Units>> = unitsDao.getAll()
 
     private var _leftChosenUnit = MutableLiveData<String>()
     val leftChosenUnit: LiveData<String> = _leftChosenUnit

@@ -14,8 +14,8 @@ import com.example.android.measureconverter.data.source.local.Units
 
 
 class UnitsAdapter(private val context: Context,
-                   private val listOfUnits: List<Units>,
-                   private val clickListener: (Units) -> Unit
+                   private val listOfUnits: List<LengthUnit>,
+                   private val clickListener: (LengthUnit) -> Unit
     ): RecyclerView.Adapter<UnitsAdapter.UnitsAdapterViewHolder>() {
 
     var toast: Toast? = null // variable for toast message in order to cancel Toast

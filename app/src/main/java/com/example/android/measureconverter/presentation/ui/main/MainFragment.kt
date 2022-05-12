@@ -7,15 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.android.UnitConverterApp
-import com.example.android.measureconverter.data.ListOfUnits
-import com.example.android.measureconverter.data.source.local.UnitsDao
+import com.example.android.measureconverter.data.LengthUnit
 import com.example.android.measureconverter.databinding.FragmentMainBinding
+import com.example.android.measureconverter.presentation.adapter.AdapterForUnits
 import com.example.android.measureconverter.presentation.adapter.UnitsAdapter
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 
 class MainFragment : Fragment() {
+    val list :List<LengthUnit> = listOf<LengthUnit>(
+        LengthUnit.KILOMETER,
+        LengthUnit.METER,
+        LengthUnit.CENTIMETER,
+        LengthUnit.MILLIMETER,
+        LengthUnit.MILE,
+        LengthUnit.FOOT,
+        LengthUnit.INCH,
+        LengthUnit.YARD
+    )
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -43,19 +56,29 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapterOne = UnitsAdapter(
             context = requireContext(),
-            listOfUnits = viewModel.list,
+            listOfUnits = list,
             clickListener = { it -> viewModel.changeLeftUnit(it.pluralName)
         } )
         val adapterTwo = UnitsAdapter(
             context = requireContext(),
-            listOfUnits = viewModel.list,
+            listOfUnits = list,
             clickListener = { it -> viewModel.changeRightUnit(it.pluralName)
         } )
+        val adapterForUnits = AdapterForUnits { it -> viewModel.changeLeftUnit(it.pluralName) }
+        val adapterForUnitsTwo = AdapterForUnits { it -> viewModel.changeRightUnit(it.pluralName) }
         with(binding) {
-            recyclerViewLeft.adapter = adapterOne
+            recyclerViewLeft.adapter = adapterForUnits
             recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context)
-            recyclerViewRight.adapter = adapterTwo
+            recyclerViewRight.adapter = adapterForUnitsTwo
             recyclerViewRight.layoutManager = LinearLayoutManager(this@MainFragment.context)
+        }
+        lifecycle.coroutineScope.launch {
+            viewModel.fullList().collect() {
+                adapterForUnits.submitList(it)
+            }
+            viewModel.fullList().collect() {
+                adapterForUnitsTwo.submitList(it)
+            }
         }
         viewModel.leftChosenUnit.observe(this.viewLifecycleOwner) {
                 it -> binding.textViewWithUnitOne.text = it }
