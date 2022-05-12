@@ -54,28 +54,23 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapterOne = UnitsAdapter(
-            context = requireContext(),
-            listOfUnits = list,
-            clickListener = { it -> viewModel.changeLeftUnit(it.pluralName)
-        } )
-        val adapterTwo = UnitsAdapter(
-            context = requireContext(),
-            listOfUnits = list,
-            clickListener = { it -> viewModel.changeRightUnit(it.pluralName)
-        } )
-        val adapterForUnits = AdapterForUnits { it -> viewModel.changeLeftUnit(it.pluralName) }
+        val adapterForUnitsOne = AdapterForUnits { it -> viewModel.changeLeftUnit(it.pluralName) }
         val adapterForUnitsTwo = AdapterForUnits { it -> viewModel.changeRightUnit(it.pluralName) }
         with(binding) {
-            recyclerViewLeft.adapter = adapterForUnits
+            recyclerViewLeft.adapter = adapterForUnitsOne
             recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context)
             recyclerViewRight.adapter = adapterForUnitsTwo
             recyclerViewRight.layoutManager = LinearLayoutManager(this@MainFragment.context)
         }
         lifecycle.coroutineScope.launch {
             viewModel.fullList().collect() {
-                adapterForUnits.submitList(it)
+                adapterForUnitsOne.submitList(it)
             }
+            viewModel.fullList().collect() {
+                adapterForUnitsTwo.submitList(it)
+            }
+        }
+        lifecycle.coroutineScope.launch {
             viewModel.fullList().collect() {
                 adapterForUnitsTwo.submitList(it)
             }

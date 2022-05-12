@@ -3,6 +3,7 @@ package com.example.android.measureconverter.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.leanback.widget.DiffCallback
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,17 +16,27 @@ class AdapterForUnits(private val onItemClicked: (Units) -> Unit): ListAdapter<U
         fun bind(unit: Units) {
             binding.textRecyclerView.text = unit.shortUnitName
         }
+        val cardView = binding.recyclerviewItem
     }
+
+    private var selectedPosition = 0
+    private var lastSelectedPosition = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterViewHolder {
         val viewHolder = AdapterViewHolder(ItemForRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-        viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.adapterPosition
-                // TODO
-        }
         return viewHolder
     }
     override fun onBindViewHolder(holder: AdapterViewHolder, position: Int) {
         holder.bind(getItem(position))
+        val position = holder.adapterPosition
+        holder.itemView.isActivated = selectedPosition == position
+        holder.itemView.setOnClickListener {
+            onItemClicked(getItem(position))
+            selectedPosition = position
+            notifyItemChanged(lastSelectedPosition)
+            notifyItemChanged(position)
+            lastSelectedPosition = position
+        }
     }
 
     companion object {
