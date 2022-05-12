@@ -12,21 +12,14 @@ abstract class UnitsDatabase : RoomDatabase() {
     abstract fun unitsDao(): UnitsDao
 
     companion object {
-        @Volatile
-        private var INSTANCE: UnitsDatabase? = null
+        private var database: UnitsDatabase? = null
 
-        fun getDatabase(context: Context): UnitsDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context,
-                    UnitsDatabase::class.java,
-                    "app_database")
-                    .createFromAsset("database/units.db")
-                    .build()
-                INSTANCE = instance
-
-                instance
-            }
-        }
+        @Synchronized
+        fun getInstance(context: Context): UnitsDatabase {
+            return if (database == null) {
+                database = Room.databaseBuilder(context, UnitsDatabase::class.java, "db").build()
+                database as UnitsDatabase
+            } else database as UnitsDatabase
         }
     }
+}
