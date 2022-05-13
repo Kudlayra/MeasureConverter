@@ -58,9 +58,9 @@ class MainFragment : Fragment() {
         val adapterForUnitsTwo = AdapterForUnits { it -> viewModel.changeRightUnit(it.pluralName) }
         with(binding) {
             recyclerViewLeft.adapter = adapterForUnitsOne
-            recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context)
+            recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context, LinearLayoutManager.HORIZONTAL, false)
             recyclerViewRight.adapter = adapterForUnitsTwo
-            recyclerViewRight.layoutManager = LinearLayoutManager(this@MainFragment.context)
+            recyclerViewRight.layoutManager = LinearLayoutManager(this@MainFragment.context, LinearLayoutManager.HORIZONTAL, false)
         }
         lifecycle.coroutineScope.launch {
             viewModel.fullList().collect() {
