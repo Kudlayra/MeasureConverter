@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.measureconverter.data.source.local.Units
 import com.example.android.measureconverter.data.source.local.UnitsDao
-import com.example.android.measureconverter.domain.usecase.AddNewUnitUseCase
 import kotlinx.coroutines.flow.Flow
 
 class MainViewModel(private val unitsDao: UnitsDao) : ViewModel() {

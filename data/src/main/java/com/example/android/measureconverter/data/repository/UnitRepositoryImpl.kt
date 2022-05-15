@@ -1,8 +1,6 @@
 package com.example.android.measureconverter.data.repository
 
 import com.example.android.measureconverter.data.UnitStorage
-import com.example.android.measureconverter.domain.models.CalculatingResult
-import com.example.android.measureconverter.domain.models.UnitDataForCalculating
 import com.example.android.measureconverter.domain.models.UnitToAdd
 import com.example.android.measureconverter.domain.repository.UnitRepository
 

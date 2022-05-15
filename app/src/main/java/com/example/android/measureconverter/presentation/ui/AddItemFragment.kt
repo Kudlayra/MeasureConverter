@@ -5,14 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.android.UnitConverterApp
+import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.R
 import com.example.android.measureconverter.databinding.FragmentAddItemBinding
-import com.example.android.measureconverter.databinding.FragmentMainBinding
 import com.example.android.measureconverter.presentation.ui.main.MainViewModel
 import com.example.android.measureconverter.presentation.ui.main.MainViewModelFactory
 

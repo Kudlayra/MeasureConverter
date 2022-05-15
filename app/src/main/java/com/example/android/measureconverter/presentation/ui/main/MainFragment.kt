@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.android.UnitConverterApp
+import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.R
 import com.example.android.measureconverter.databinding.FragmentMainBinding
 import com.example.android.measureconverter.presentation.adapter.AdapterForUnits
