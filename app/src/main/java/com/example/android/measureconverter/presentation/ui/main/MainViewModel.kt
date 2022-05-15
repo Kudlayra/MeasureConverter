@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.measureconverter.data.source.local.Units
 import com.example.android.measureconverter.data.source.local.UnitsDao
+import com.example.android.measureconverter.domain.usecase.AddNewUnitUseCase
 import kotlinx.coroutines.flow.Flow
 
 class MainViewModel(private val unitsDao: UnitsDao) : ViewModel() {
@@ -20,12 +21,33 @@ class MainViewModel(private val unitsDao: UnitsDao) : ViewModel() {
     private val _result = MutableLiveData<String>()
     val result: LiveData<String> = _result
 
+    private val _stringWithType = MutableLiveData<String>()
+    val stringWithType = _stringWithType
+
+    fun addNewItem(){
+    }
+
     fun changeLeftUnit(choice: String) {
         _leftChosenUnit.value = choice
     }
 
     fun changeRightUnit(choice: String) {
         _rightChosenUnit.value = choice
+    }
+
+    fun changeType(type: String?) {
+        val unit = when(type) {
+            "Length" -> "meters"
+            "Weight" -> "grams"
+            "Degrees" -> "degrees"
+            //todo
+            else -> "meters"
+        }
+        stringWithType.value = "How many $unit in one unit?"
+    }
+
+    suspend fun addNewItem(unit: Units) {
+
     }
 }
 

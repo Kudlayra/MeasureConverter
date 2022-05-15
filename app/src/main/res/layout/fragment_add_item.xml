@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/addItemFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.main.MainFragment"
+    android:background="@color/background"
+    >
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/forText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/how_many_meters_in_one_unit"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/addButton"
+        app:layout_constraintStart_toStartOf="@+id/addButton"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addButton"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/enter_unit_equals_here"
+        app:boxStrokeColor="@color/black"
+        app:endIconMode="clear_text"
+        app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputCalculateData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textSize="20sp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/enter_new_unit_name"
+        app:boxStrokeColor="@color/black"
+        app:endIconMode="clear_text"
+        app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textSize="20sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout4"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/enter_new_unit_shortname"
+        app:boxStrokeColor="@color/black"
+        app:endIconMode="clear_text"
+        app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputShortName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textSize="20sp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/buttonToAdd"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:backgroundTint="@color/item_color"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/addButton"
+        app:layout_constraintTop_toBottomOf="@+id/addButton">
+
+        <TextView
+            android:id="@+id/textRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/add"
+            android:textColor="@color/textColor"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cancelButton"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:backgroundTint="@color/item_color"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:layout_constraintStart_toStartOf="@+id/addButton"
+        app:layout_constraintTop_toBottomOf="@+id/addButton">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/textColor"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_marginTop="20dp"
+        style="@style/forText"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fill_in_all_the_fields_to_add_new_unit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RadioGroup
+        android:layout_margin="20dp"
+
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/radioButtonLength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/length"
+            tools:layout_editor_absoluteX="47dp"
+            tools:layout_editor_absoluteY="399dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weight"
+            tools:layout_editor_absoluteX="49dp"
+            tools:layout_editor_absoluteY="449dp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDegrees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/degrees"
+            tools:layout_editor_absoluteX="52dp"
+            tools:layout_editor_absoluteY="503dp" />
+    </RadioGroup>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

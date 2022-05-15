@@ -14,9 +14,9 @@ interface UnitsDao {
     fun getAll(): Flow<List<Units>>
 
     @Insert
-    fun addNewUnit(unit: Units)
+    suspend fun addNewUnit(unit: Units)
 
     @Query("DELETE FROM units WHERE id = :id")
-    fun deleteUnit(id: String)
+    suspend fun deleteUnit(id: String)
 
 }

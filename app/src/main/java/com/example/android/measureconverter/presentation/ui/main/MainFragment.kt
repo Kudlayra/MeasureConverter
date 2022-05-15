@@ -6,29 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.android.UnitConverterApp
-import com.example.android.measureconverter.data.LengthUnit
+import com.example.android.measureconverter.R
 import com.example.android.measureconverter.databinding.FragmentMainBinding
 import com.example.android.measureconverter.presentation.adapter.AdapterForUnits
-import com.example.android.measureconverter.presentation.adapter.UnitsAdapter
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.collect
 
 class MainFragment : Fragment() {
-    val list :List<LengthUnit> = listOf<LengthUnit>(
-        LengthUnit.KILOMETER,
-        LengthUnit.METER,
-        LengthUnit.CENTIMETER,
-        LengthUnit.MILLIMETER,
-        LengthUnit.MILE,
-        LengthUnit.FOOT,
-        LengthUnit.INCH,
-        LengthUnit.YARD
-    )
+
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -58,16 +46,16 @@ class MainFragment : Fragment() {
         val adapterForUnitsTwo = AdapterForUnits { it -> viewModel.changeRightUnit(it.pluralName) }
         with(binding) {
             recyclerViewLeft.adapter = adapterForUnitsOne
-            recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context)
             recyclerViewRight.adapter = adapterForUnitsTwo
-            recyclerViewRight.layoutManager = LinearLayoutManager(this@MainFragment.context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerViewRight.layoutManager = LinearLayoutManager(this@MainFragment.context)
+            floatingActionButton.setOnClickListener {
+                findNavController().navigate(R.id.action_mainFragment2_to_addItemFragment2)
+            }
         }
         lifecycle.coroutineScope.launch {
             viewModel.fullList().collect() {
                 adapterForUnitsOne.submitList(it)
-            }
-            viewModel.fullList().collect() {
-                adapterForUnitsTwo.submitList(it)
             }
         }
         lifecycle.coroutineScope.launch {
@@ -81,6 +69,5 @@ class MainFragment : Fragment() {
         viewModel.rightChosenUnit.observe(this.viewLifecycleOwner) {
                 item -> binding.textViewWithUnitTwo.text = item }
         }
-
 
 }
