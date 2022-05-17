@@ -17,7 +17,9 @@ abstract class UnitsDatabase : RoomDatabase() {
         @Synchronized
         fun getInstance(context: Context): UnitsDatabase {
             return if (database == null) {
-                database = Room.databaseBuilder(context, UnitsDatabase::class.java, "db").build()
+                database = Room.databaseBuilder(context, UnitsDatabase::class.java, "db")
+                    .createFromAsset("database/db.db")
+                    .build()
                 database as UnitsDatabase
             } else database as UnitsDatabase
         }

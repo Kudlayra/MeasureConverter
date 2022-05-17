@@ -14,17 +14,16 @@ import com.example.android.measureconverter.R
 import com.example.android.measureconverter.databinding.FragmentMainBinding
 import com.example.android.measureconverter.presentation.adapter.AdapterForUnits
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
-
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: MainViewModel by activityViewModels {
-        MainViewModelFactory(
-            (activity?.application as UnitConverterApp).database.unitsDao()
-        )
+        viewModelFactory
     }
 
     companion object {
@@ -37,6 +36,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater)
+        (requireContext().applicationContext as UnitConverterApp).appComponent.inject(this)
         return binding.root
     }
 
@@ -54,12 +54,12 @@ class MainFragment : Fragment() {
             }
         }
         lifecycle.coroutineScope.launch {
-            viewModel.fullList().collect() {
+            viewModel.getList().collect() {
                 adapterForUnitsOne.submitList(it)
             }
         }
         lifecycle.coroutineScope.launch {
-            viewModel.fullList().collect() {
+            viewModel.getList().collect() {
                 adapterForUnitsTwo.submitList(it)
             }
         }

@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.measureconverter.data.source.local.Units
 import com.example.android.measureconverter.databinding.ItemForRecyclerviewBinding
+import com.example.android.measureconverter.domain.models.UnitToAdd
 
-class AdapterForUnits(private val onItemClicked: (Units) -> Unit): ListAdapter<Units, AdapterForUnits.AdapterViewHolder>(DiffCallback) {
+class AdapterForUnits(private val onItemClicked: (UnitToAdd) -> Unit): ListAdapter<UnitToAdd, AdapterForUnits.AdapterViewHolder>(DiffCallback) {
     class AdapterViewHolder(private val binding: ItemForRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(unit: Units) {
+        fun bind(unit: UnitToAdd) {
             binding.textRecyclerView.text = unit.shortUnitName
         }
         val cardView = binding.recyclerviewItem
@@ -38,12 +39,12 @@ class AdapterForUnits(private val onItemClicked: (Units) -> Unit): ListAdapter<U
     }
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Units>() {
-            override fun areItemsTheSame(oldItem: Units, newItem: Units): Boolean {
+        private val DiffCallback = object : DiffUtil.ItemCallback<UnitToAdd>() {
+            override fun areItemsTheSame(oldItem: UnitToAdd, newItem: UnitToAdd): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Units, newItem: Units): Boolean {
+            override fun areContentsTheSame(oldItem: UnitToAdd, newItem: UnitToAdd): Boolean {
                 return oldItem == newItem
             }
         }

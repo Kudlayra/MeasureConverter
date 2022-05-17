@@ -5,11 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.measureconverter.data.source.local.Units
 import com.example.android.measureconverter.data.source.local.UnitsDao
+import com.example.android.measureconverter.domain.models.UnitToAdd
+import com.example.android.measureconverter.domain.usecase.AddNewUnitUseCase
+import com.example.android.measureconverter.domain.usecase.DeleteUnitUseCase
+import com.example.android.measureconverter.domain.usecase.GetUnitListUseCase
 import kotlinx.coroutines.flow.Flow
 
-class MainViewModel(private val unitsDao: UnitsDao) : ViewModel() {
+class MainViewModel(val addNewUnitUseCase: AddNewUnitUseCase,
+                    val deleteUnitUseCase: DeleteUnitUseCase,
+                    val getUnitListUseCase: GetUnitListUseCase
+) : ViewModel() {
 
-    fun fullList(): Flow<List<Units>> = unitsDao.getAll()
+    suspend fun getList(): Flow<List<UnitToAdd>> = getUnitListUseCase.execute()
 
     private var _leftChosenUnit = MutableLiveData<String>()
     val leftChosenUnit: LiveData<String> = _leftChosenUnit
