@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.R
 import com.example.android.measureconverter.databinding.FragmentAddItemBinding
 import com.example.android.measureconverter.presentation.ui.main.MainViewModel
 import com.example.android.measureconverter.presentation.ui.main.MainViewModelFactory
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AddItemFragment : Fragment() {
@@ -39,7 +41,9 @@ class AddItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonToAdd.setOnClickListener {
-
+            lifecycle.coroutineScope.launch{
+                getNewUnitData()
+            }
             findNavController().navigate(R.id.action_addItemFragment2_to_mainFragment2)
         }
         binding.cancelButton.setOnClickListener {
@@ -47,15 +51,15 @@ class AddItemFragment : Fragment() {
         }
         binding.radioButtonLength.setOnClickListener {
             checkedRadioButton = binding.radioButtonLength.text.toString()
-            viewModel.changeType(checkedRadioButton)
+            viewModel.changeTypeOnUi(checkedRadioButton)
         }
         binding.radioButtonWeight.setOnClickListener {
             checkedRadioButton = binding.radioButtonWeight.text.toString()
-            viewModel.changeType(checkedRadioButton)
+            viewModel.changeTypeOnUi(checkedRadioButton)
         }
         binding.radioButtonDegrees.setOnClickListener {
             checkedRadioButton = binding.radioButtonDegrees.text.toString()
-            viewModel.changeType(checkedRadioButton)
+            viewModel.changeTypeOnUi(checkedRadioButton)
         }
         viewModel.stringWithType.observe(this.viewLifecycleOwner){ it ->
             binding.textView3.text = it
@@ -66,11 +70,12 @@ class AddItemFragment : Fragment() {
         fun newInstance() = AddItemFragment
     }
 
-    private fun getNewUnitData() {
-        val type = checkedRadioButton
-        val unitName = binding.inputName.text
-        val shortName = binding.inputShortName.text
-        val convertingData = binding.inputCalculateData.text
+    private suspend fun getNewUnitData() {
+        val type = checkedRadioButton.toString()
+        val unitName = binding.inputName.text.toString()
+        val shortName = binding.inputShortName.text.toString()
+        val convertingData = binding.inputCalculateData.text.toString()
+        viewModel.addNewItem(type, unitName, shortName, convertingData)
     }
 
 }

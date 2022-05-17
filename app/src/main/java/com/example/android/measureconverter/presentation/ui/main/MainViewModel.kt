@@ -3,8 +3,6 @@ package com.example.android.measureconverter.presentation.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.android.measureconverter.data.source.local.Units
-import com.example.android.measureconverter.data.source.local.UnitsDao
 import com.example.android.measureconverter.domain.models.UnitToAdd
 import com.example.android.measureconverter.domain.usecase.AddNewUnitUseCase
 import com.example.android.measureconverter.domain.usecase.DeleteUnitUseCase
@@ -30,9 +28,6 @@ class MainViewModel(val addNewUnitUseCase: AddNewUnitUseCase,
     private val _stringWithType = MutableLiveData<String>()
     val stringWithType = _stringWithType
 
-    fun addNewItem(){
-    }
-
     fun changeLeftUnit(choice: String) {
         _leftChosenUnit.value = choice
     }
@@ -41,7 +36,7 @@ class MainViewModel(val addNewUnitUseCase: AddNewUnitUseCase,
         _rightChosenUnit.value = choice
     }
 
-    fun changeType(type: String?) {
+    fun changeTypeOnUi(type: String?) {
         val unit = when(type) {
             "Length" -> "meters"
             "Weight" -> "grams"
@@ -52,9 +47,13 @@ class MainViewModel(val addNewUnitUseCase: AddNewUnitUseCase,
         stringWithType.value = "How many $unit in one unit?"
     }
 
-    suspend fun addNewItem(unit: Units) {
-
+    suspend fun addNewItem(type: String, name: String, shortName: String, calculatingData: String) {
+        addNewUnitUseCase.execute(type, name, shortName, name, calculatingData)
     }
+     suspend fun deleteItem() {
+         //todo
+     }
+
 }
 
 
