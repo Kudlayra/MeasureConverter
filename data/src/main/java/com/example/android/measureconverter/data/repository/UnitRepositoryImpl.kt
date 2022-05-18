@@ -19,8 +19,8 @@ class UnitRepositoryImpl(private val unitStorage: UnitStorage): UnitRepository {
         return unitStorage.delete(unit)
     }
 
-    override suspend fun getUnitList(): Flow<List<UnitToAdd>> {
-        return unitStorage.get()
+    override suspend fun getUnitList(type: String): Flow<List<UnitToAdd>> {
+        return unitStorage.get(type)
     }
 
 

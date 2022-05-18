@@ -26,7 +26,7 @@ class AddItemFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels {
         viewModelFactory
     }
-    private var checkedRadioButton: String? = null
+    private var checkedRadioButton: String = "length"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,24 +41,27 @@ class AddItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonToAdd.setOnClickListener {
-            lifecycle.coroutineScope.launch{
-                getNewUnitData()
+            checkIsEmptyInputField()
+            if (checkIsEmptyInputField()) {
+                lifecycle.coroutineScope.launch {
+                    getNewUnitData()
+                }
+                findNavController().navigate(R.id.action_addItemFragment2_to_mainFragment2)
             }
-            findNavController().navigate(R.id.action_addItemFragment2_to_mainFragment2)
         }
         binding.cancelButton.setOnClickListener {
             findNavController().navigate(R.id.action_addItemFragment2_to_mainFragment2)
         }
         binding.radioButtonLength.setOnClickListener {
-            checkedRadioButton = binding.radioButtonLength.text.toString()
+            checkedRadioButton = binding.radioButtonLength.text.toString().lowercase()
             viewModel.changeTypeOnUi(checkedRadioButton)
         }
         binding.radioButtonWeight.setOnClickListener {
-            checkedRadioButton = binding.radioButtonWeight.text.toString()
+            checkedRadioButton = binding.radioButtonWeight.text.toString().lowercase()
             viewModel.changeTypeOnUi(checkedRadioButton)
         }
         binding.radioButtonDegrees.setOnClickListener {
-            checkedRadioButton = binding.radioButtonDegrees.text.toString()
+            checkedRadioButton = binding.radioButtonDegrees.text.toString().lowercase()
             viewModel.changeTypeOnUi(checkedRadioButton)
         }
         viewModel.stringWithType.observe(this.viewLifecycleOwner){ it ->
@@ -71,11 +74,39 @@ class AddItemFragment : Fragment() {
     }
 
     private suspend fun getNewUnitData() {
-        val type = checkedRadioButton.toString()
+        val type = checkedRadioButton
         val unitName = binding.inputName.text.toString()
         val shortName = binding.inputShortName.text.toString()
         val convertingData = binding.inputCalculateData.text.toString()
         viewModel.addNewItem(type, unitName, shortName, convertingData)
+    }
+
+    private fun checkIsEmptyInputField(): Boolean {
+        binding.apply {
+            if (inputName.text.isNullOrEmpty()) {
+                textInputName.isErrorEnabled = true
+                textInputName.error = getString(R.string.Enter_the_unit_name)
+                return false
+            } else {
+                textInputName.isErrorEnabled = false
+                textInputName.error = null
+            }
+            if (inputShortName.text.isNullOrEmpty()) {
+                textInputShortName.isErrorEnabled = true
+                textInputShortName.error = getString(R.string.Enter_the_unit_short_name)
+                return false
+            } else { textInputShortName.isErrorEnabled = false
+                textInputShortName.error = null
+            }
+            if (inputCalculateData.text.isNullOrEmpty()) {
+                textInputCalculateData.isErrorEnabled = true
+                textInputCalculateData.error = getString(R.string.Enter_data_for_calculating)
+                return false
+            } else { textInputCalculateData.isErrorEnabled = false
+            textInputCalculateData.error = null
+            }
+        }
+        return true
     }
 
 }

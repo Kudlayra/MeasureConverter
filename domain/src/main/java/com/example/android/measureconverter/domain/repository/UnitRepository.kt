@@ -10,6 +10,6 @@ interface UnitRepository {
 
     suspend fun deleteUnit(unit: UnitToAdd): Boolean
 
-    suspend fun getUnitList(): Flow<List<UnitToAdd>>
+    suspend fun getUnitList(type: String): Flow<List<UnitToAdd>>
 
 }

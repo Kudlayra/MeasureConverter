@@ -17,12 +17,12 @@
         android:layout_height="wrap_content"
         android:text="@string/how_many_meters_in_one_unit"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/addButton"
-        app:layout_constraintStart_toStartOf="@+id/addButton"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+        app:layout_constraintEnd_toEndOf="@+id/textInputCalculateData"
+        app:layout_constraintStart_toStartOf="@+id/textInputCalculateData"
+        app:layout_constraintTop_toBottomOf="@+id/textInputShortName" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/addButton"
+        android:id="@+id/textInputCalculateData"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
+        android:id="@+id/textInputName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
+        android:id="@+id/textInputShortName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
         app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/textInputName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputShortName"
@@ -104,8 +104,8 @@
         android:backgroundTint="@color/item_color"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/addButton"
-        app:layout_constraintTop_toBottomOf="@+id/addButton">
+        app:layout_constraintEnd_toEndOf="@+id/textInputCalculateData"
+        app:layout_constraintTop_toBottomOf="@+id/textInputCalculateData">
 
         <TextView
             android:id="@+id/textRecyclerView"
@@ -127,8 +127,8 @@
         android:backgroundTint="@color/item_color"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
-        app:layout_constraintStart_toStartOf="@+id/addButton"
-        app:layout_constraintTop_toBottomOf="@+id/addButton">
+        app:layout_constraintStart_toStartOf="@+id/textInputCalculateData"
+        app:layout_constraintTop_toBottomOf="@+id/textInputCalculateData">
 
         <TextView
             android:layout_width="wrap_content"

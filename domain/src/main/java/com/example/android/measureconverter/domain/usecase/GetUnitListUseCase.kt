@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 class GetUnitListUseCase(private val unitRepository: UnitRepository) {
 
-    suspend fun execute(): Flow<List<UnitToAdd>> {
-        return unitRepository.getUnitList()
+    suspend fun execute(type: String): Flow<List<UnitToAdd>> {
+        return unitRepository.getUnitList(type)
     }
 
 }

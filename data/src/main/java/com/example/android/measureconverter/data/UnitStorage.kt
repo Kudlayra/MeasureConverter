@@ -10,6 +10,6 @@ interface UnitStorage {
 
     suspend fun delete(unitToAdd: UnitToAdd): Boolean
 
-    suspend fun get(): Flow<List<UnitToAdd>>
+    suspend fun get(type: String): Flow<List<UnitToAdd>>
 
 }

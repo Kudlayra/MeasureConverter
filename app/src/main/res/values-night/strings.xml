@@ -11,4 +11,7 @@
     <string name="how_many_meters_in_one_unit">How many meters in one unit?</string>
     <string name="meters">meters</string>
     <string name="grams">grams</string>
+    <string name="Enter_the_unit_name">Enter the unit name</string>
+    <string name="Enter_the_unit_short_name">Enter the unit short name</string>
+    <string name="Enter_data_for_calculating">Enter data for calculating</string>
 </resources>

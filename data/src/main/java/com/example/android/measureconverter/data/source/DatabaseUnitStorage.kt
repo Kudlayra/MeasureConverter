@@ -25,8 +25,8 @@ class DatabaseUnitStorage(private val database: UnitsDatabase) : UnitStorage {
         return true
     }
 
-    override suspend fun get(): Flow<List<UnitToAdd>> {
-        return database.unitsDao().getAll().map { it.asDomainModel() }
+    override suspend fun get(type: String): Flow<List<UnitToAdd>> {
+        return database.unitsDao().getAll(type).map { it.asDomainModel() }
     }
 
     private fun mapToUnit(unit: UnitToAdd): Units {

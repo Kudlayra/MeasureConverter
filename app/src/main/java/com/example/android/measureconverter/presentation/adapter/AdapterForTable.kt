@@ -6,16 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.measureconverter.databinding.TableItemBinding
+import com.example.android.measureconverter.domain.models.CalculatedResult
 import com.example.android.measureconverter.domain.models.UnitToAdd
 
 
-class AdapterForTable(): ListAdapter<UnitToAdd, AdapterForTable.AdapterForTableViewHolder>(
+class AdapterForTable(function: () -> Unit) : ListAdapter<CalculatedResult, AdapterForTable.AdapterForTableViewHolder>(
     DiffCallback
 ) {
     class AdapterForTableViewHolder(private val binding: TableItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(unit: UnitToAdd) {
-            binding.tableText.text = unit.pluralName
+        fun bind(unit: CalculatedResult) {
+            binding.tableText.text = "${unit.result} ${unit.unitName}"
         }
     }
 
@@ -29,12 +30,12 @@ class AdapterForTable(): ListAdapter<UnitToAdd, AdapterForTable.AdapterForTableV
 
     }
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<UnitToAdd>() {
-            override fun areItemsTheSame(oldItem: UnitToAdd, newItem: UnitToAdd): Boolean {
-                return oldItem.id == newItem.id
+        private val DiffCallback = object : DiffUtil.ItemCallback<CalculatedResult>() {
+            override fun areItemsTheSame(oldItem: CalculatedResult, newItem: CalculatedResult): Boolean {
+                return oldItem.unitName == newItem.unitName
             }
 
-            override fun areContentsTheSame(oldItem: UnitToAdd, newItem: UnitToAdd): Boolean {
+            override fun areContentsTheSame(oldItem: CalculatedResult, newItem: CalculatedResult): Boolean {
                 return oldItem == newItem
             }
         }

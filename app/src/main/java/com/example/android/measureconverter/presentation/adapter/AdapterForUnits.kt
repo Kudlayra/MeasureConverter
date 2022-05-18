@@ -29,6 +29,7 @@ class AdapterForUnits(private val onItemClicked: (UnitToAdd) -> Unit): ListAdapt
         holder.bind(getItem(position))
         val position = holder.adapterPosition
         holder.itemView.isActivated = selectedPosition == position
+        if (holder.itemView.isActivated) onItemClicked(getItem(position))
         holder.itemView.setOnClickListener {
             onItemClicked(getItem(position))
             selectedPosition = position
