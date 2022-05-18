@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.R
 import com.example.android.measureconverter.databinding.FragmentMainBinding
+import com.example.android.measureconverter.presentation.adapter.AdapterForTable
 import com.example.android.measureconverter.presentation.adapter.AdapterForUnits
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -43,12 +44,12 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapterForUnitsOne = AdapterForUnits { it -> viewModel.changeLeftUnit(it.pluralName) }
-        val adapterForUnitsTwo = AdapterForUnits { it -> viewModel.changeRightUnit(it.pluralName) }
+        val adapterForUnitsTwo = AdapterForTable
         with(binding) {
             recyclerViewLeft.adapter = adapterForUnitsOne
             recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context)
-            recyclerViewRight.adapter = adapterForUnitsTwo
-            recyclerViewRight.layoutManager = LinearLayoutManager(this@MainFragment.context)
+            recyclerviewRight.adapter = adapterForUnitsTwo
+            recyclerviewRight.layoutManager = LinearLayoutManager(this@MainFragment.context)
             floatingActionButton.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment2_to_addItemFragment2)
             }

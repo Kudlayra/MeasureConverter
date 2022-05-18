@@ -19,69 +19,28 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/item_for_recyclerview"
-        android:id="@+id/recyclerViewRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewWithUnitOne"
         style="@style/forText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Convert from"
-        app:layout_constraintEnd_toStartOf="@+id/recyclerViewRight"
+        android:text="Unit"
         app:layout_constraintStart_toEndOf="@+id/recyclerViewLeft"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        style="@style/forText"
-        android:id="@+id/textViewWithUnitOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Unit"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        style="@style/forText"
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="to"
-        app:layout_constraintEnd_toEndOf="@+id/textViewWithUnitOne"
-        app:layout_constraintStart_toStartOf="@+id/textViewWithUnitOne"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWithUnitOne" />
-
-    <TextView
-        style="@style/forText"
-        android:id="@+id/textViewWithUnitTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Unit"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:hint="@string/enter_amount"
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
         app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recyclerViewRight"
-        app:layout_constraintStart_toEndOf="@+id/recyclerViewLeft"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWithUnitTwo">
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recyclerViewLeft">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputAmount"
@@ -96,12 +55,21 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:src="@drawable/ic_baseline_add_24"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
