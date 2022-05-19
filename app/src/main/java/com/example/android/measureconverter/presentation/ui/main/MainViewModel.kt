@@ -25,6 +25,8 @@ class MainViewModel(
         amount: String
     ): Flow<List<CalculatedResult>> = calculateResultUseCase.execute(unit, amount.toDouble())
 
+    var currentUnit: UnitToAdd? = null
+
     private var _leftChosenUnit = MutableLiveData<String>()
     val leftChosenUnit: LiveData<String> = _leftChosenUnit
 
@@ -63,6 +65,9 @@ class MainViewModel(
 //    fun calculate(unit: UnitToAdd, amount: String): {
 //        calculateResultUseCase.execute(unit, amount.toDouble())
 //    }
+    fun currentUnit(unit: UnitToAdd) {
+        currentUnit = unit
+    }
 
 }
 

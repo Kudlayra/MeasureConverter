@@ -19,18 +19,26 @@ class CalculateResultUseCase(private val userRepository: UnitRepository) {
 
     fun List<UnitToAdd>.asAppModule(convertingData: Double): List<CalculatedResult> {
         return map {
-            val res = BigDecimal(convertingData.toString()).divide(BigDecimal(it.convertingData), 10,RoundingMode.HALF_EVEN)
-                .stripTrailingZeros()
-                .toPlainString()
-            if (res.toDouble() == 1.0) {
-                CalculatedResult(
-                    result = res,
-                    unitName = it.unitName,
+            if (convertingData == 0.0) {
+                CalculatedResult(result = "0", it.pluralName)
+            } else {
+                val res = BigDecimal(convertingData.toString()).divide(
+                    BigDecimal(it.convertingData),
+                    10,
+                    RoundingMode.HALF_EVEN
                 )
-            } else CalculatedResult(
-                result = res,
-                unitName = it.pluralName,
-            )
+                    .stripTrailingZeros()
+                    .toPlainString()
+                if (res.toDouble() == 1.0) {
+                    CalculatedResult(
+                        result = res,
+                        unitName = it.unitName,
+                    )
+                } else CalculatedResult(
+                    result = res,
+                    unitName = it.pluralName,
+                )
+            }
         }
     }
 }

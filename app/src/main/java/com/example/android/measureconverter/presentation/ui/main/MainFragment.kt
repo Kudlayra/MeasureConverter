@@ -1,11 +1,12 @@
 package com.example.android.measureconverter.presentation.ui.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
@@ -45,12 +46,13 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapterForUnitsTwo = AdapterForTable { }
         val adapterForUnitsOne = AdapterForUnits { it ->
+            viewModel.currentUnit(it)
             lifecycle.coroutineScope.launch {
-                viewModel.getCalculatedResultList(it, binding.inputAmount.text.toString()).collect() {
+                viewModel.getCalculatedResultList(it, inputDataFromEditText()).collect() {
                     adapterForUnitsTwo.submitList(it)
                 }
             }
-            if (binding.inputAmount.text.toString().toDouble() == 1.0) {
+            if (inputDataFromEditText().toDouble() == 1.0) {
                 viewModel.changeUnitOnUi(it.unitName)
             } else viewModel.changeUnitOnUi(it.pluralName)
         }
@@ -62,6 +64,26 @@ class MainFragment : Fragment() {
             floatingActionButton.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment2_to_addItemFragment2)
             }
+            inputAmount.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        lifecycle.coroutineScope.launch {
+                            viewModel.getCalculatedResultList(viewModel.currentUnit!!, inputDataFromEditText()).collect() {
+                                adapterForUnitsTwo.submitList(it)
+                            }
+                        }
+
+                        if (inputDataFromEditText().toDouble() == 1.0) {
+                        viewModel.changeUnitOnUi(viewModel.currentUnit!!.unitName)
+                        } else viewModel.changeUnitOnUi(viewModel.currentUnit!!.pluralName)
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+                }
+
+            })
         }
         lifecycle.coroutineScope.launch {
             viewModel.getList().collect() {
@@ -73,5 +95,9 @@ class MainFragment : Fragment() {
             binding.textViewWithUnit.text = it
         }
 
+    }
+    fun inputDataFromEditText(): String {
+        return if (binding.inputAmount.text.isNullOrEmpty()) "0.0"
+        else binding.inputAmount.text.toString()
     }
 }
