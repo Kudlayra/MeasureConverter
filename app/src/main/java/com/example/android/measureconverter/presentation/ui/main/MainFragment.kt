@@ -50,6 +50,9 @@ class MainFragment : Fragment() {
                     adapterForUnitsTwo.submitList(it)
                 }
             }
+            if (binding.inputAmount.text.toString().toDouble() == 1.0) {
+                viewModel.changeUnitOnUi(it.unitName)
+            } else viewModel.changeUnitOnUi(it.pluralName)
         }
         with(binding) {
             recyclerViewLeft.adapter = adapterForUnitsOne
@@ -66,8 +69,8 @@ class MainFragment : Fragment() {
             }
         }
 
-        viewModel.leftChosenUnit.observe(this.viewLifecycleOwner) { it ->
-            binding.textViewWithUnitOne.text = it
+        viewModel.rightChosenUnit.observe(this.viewLifecycleOwner) { it ->
+            binding.textViewWithUnit.text = it
         }
 
     }

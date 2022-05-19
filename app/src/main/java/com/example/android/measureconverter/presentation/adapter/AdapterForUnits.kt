@@ -15,7 +15,6 @@ class AdapterForUnits(private val onItemClicked: (UnitToAdd) -> Unit): ListAdapt
         fun bind(unit: UnitToAdd) {
             binding.textRecyclerView.text = unit.shortUnitName
         }
-        val cardView = binding.recyclerviewItem
     }
 
     private var selectedPosition = 0

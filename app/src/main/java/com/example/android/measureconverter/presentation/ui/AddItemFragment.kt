@@ -1,7 +1,6 @@
 package com.example.android.measureconverter.presentation.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +49,7 @@ class AddItemFragment : Fragment() {
             }
         }
         binding.cancelButton.setOnClickListener {
-            findNavController().navigate(R.id.action_addItemFragment2_to_mainFragment2)
+            findNavController().navigate(R.id.action_addItemFragment2_to_mainFragment2) //todo
         }
         binding.radioButtonLength.setOnClickListener {
             checkedRadioButton = binding.radioButtonLength.text.toString().lowercase()

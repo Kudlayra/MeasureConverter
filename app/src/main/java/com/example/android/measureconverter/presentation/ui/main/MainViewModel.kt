@@ -28,8 +28,8 @@ class MainViewModel(
     private var _leftChosenUnit = MutableLiveData<String>()
     val leftChosenUnit: LiveData<String> = _leftChosenUnit
 
-    //    private val _rightChosenUnit = MutableLiveData<String>()
-//    val rightChosenUnit: LiveData<String> = _rightChosenUnit
+        private val _rightChosenUnit = MutableLiveData<String>()
+    val rightChosenUnit: LiveData<String> = _rightChosenUnit
 //
 //    private val _result = MutableLiveData<String>()
 //    val result: LiveData<String> = _result
@@ -41,9 +41,9 @@ class MainViewModel(
         _leftChosenUnit.value = choice
     }
 
-//    fun changeRightUnit(choice: String) {
-//        _rightChosenUnit.value = choice
-//    }
+    fun changeUnitOnUi(choice: String) {
+        _rightChosenUnit.value = choice
+    }
 
     fun changeTypeOnUi(type: String?) {
         val unit = when (type) {
