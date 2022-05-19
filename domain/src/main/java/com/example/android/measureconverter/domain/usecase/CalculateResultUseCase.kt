@@ -5,6 +5,9 @@ import com.example.android.measureconverter.domain.models.UnitToAdd
 import com.example.android.measureconverter.domain.repository.UnitRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.math.BigDecimal
+import java.math.BigDecimal.ROUND_UP
+import java.math.RoundingMode
 
 class CalculateResultUseCase(private val userRepository: UnitRepository) {
 
@@ -16,10 +19,13 @@ class CalculateResultUseCase(private val userRepository: UnitRepository) {
 
     fun List<UnitToAdd>.asAppModule(convertingData: Double): List<CalculatedResult> {
         return map {
+            val res = BigDecimal(convertingData.toString()).divide(BigDecimal(it.convertingData), 10,RoundingMode.HALF_EVEN)
+                .stripTrailingZeros()
+                .toPlainString()
             CalculatedResult(
-            result = it.convertingData.toDouble() * convertingData,
-            unitName = it.pluralName
-                )
+                result = res,
+                unitName = it.pluralName
+            )
         }
     }
 }

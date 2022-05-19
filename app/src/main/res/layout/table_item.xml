@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<TextView android:id="@+id/tableText"
-    style="@style/forText"
-    android:backgroundTint="@color/background"
-    android:background="@color/white"
-    android:textColor="@color/light"
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
-    android:text="TextView"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    android:layout_width="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:backgroundTint="@color/background"
+        android:text="TextView"
+        android:textColor="@color/light"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:backgroundTint="@color/background"
+        android:text="TextView"
+        android:textColor="@color/itemBackground"
+        app:layout_constraintStart_toEndOf="@+id/result"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

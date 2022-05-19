@@ -16,7 +16,8 @@ class AdapterForTable(function: () -> Unit) : ListAdapter<CalculatedResult, Adap
     class AdapterForTableViewHolder(private val binding: TableItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(unit: CalculatedResult) {
-            binding.tableText.text = "${unit.result} ${unit.unitName}"
+            binding.result.text = "${unit.result}"
+            binding.unit.text = " ${unit.unitName}"
         }
     }
 
