@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
@@ -39,17 +38,18 @@
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
         app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
+        app:expandedHintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toEndOf="@+id/recyclerViewLeft"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupForTypeChanging">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputAmount"
             android:layout_width="match_parent"
             android:layout_height="86dp"
+            android:hint="0"
             android:inputType="numberDecimal"
-            android:text="1"
             android:textColorHint="@color/black"
             android:textSize="35sp" />
 
@@ -67,6 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -85,6 +86,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroupForTypeChanging"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:checkedButton="@id/changeToLengthRadioButton"
+        app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewLeft"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/changeToLengthRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/length" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/changeToWeightRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weight"/>
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

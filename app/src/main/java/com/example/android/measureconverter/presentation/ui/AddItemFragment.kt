@@ -1,12 +1,14 @@
 package com.example.android.measureconverter.presentation.ui
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.R
@@ -49,7 +51,9 @@ class AddItemFragment : Fragment() {
             }
         }
         binding.cancelButton.setOnClickListener {
-            findNavController().navigate(R.id.action_addItemFragment2_to_mainFragment2) //todo
+            Navigation.findNavController(view).apply {
+                popBackStack()
+            }
         }
         binding.radioButtonLength.setOnClickListener {
             checkedRadioButton = binding.radioButtonLength.text.toString().lowercase()

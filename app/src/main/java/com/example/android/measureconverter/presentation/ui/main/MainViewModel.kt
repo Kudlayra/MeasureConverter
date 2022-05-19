@@ -18,12 +18,17 @@ class MainViewModel(
     val calculateResultUseCase: CalculateResultUseCase
 ) : ViewModel() {
 
-    suspend fun getList(): Flow<List<UnitToAdd>> = getUnitListUseCase.execute("length") //todo
+    suspend fun getList(type: String): Flow<List<UnitToAdd>> = getUnitListUseCase.execute(type) //todo
 
     suspend fun getCalculatedResultList(
         unit: UnitToAdd,
         amount: String
     ): Flow<List<CalculatedResult>> = calculateResultUseCase.execute(unit, amount.toDouble())
+
+    var currentUnit: UnitToAdd? = null
+
+    private val _choicedType = MutableLiveData<String>() //todo
+    val selectedType = _choicedType
 
     private var _leftChosenUnit = MutableLiveData<String>()
     val leftChosenUnit: LiveData<String> = _leftChosenUnit
@@ -60,9 +65,21 @@ class MainViewModel(
         addNewUnitUseCase.execute(type, name, shortName, name, calculatingData)
     }
 
-//    fun calculate(unit: UnitToAdd, amount: String): {
-//        calculateResultUseCase.execute(unit, amount.toDouble())
-//    }
+    fun currentUnit(unit: UnitToAdd) {
+        currentUnit = unit
+    }
+
+    fun changeType(type: String) {
+        _choicedType.value = type
+    }
+
+    companion object {
+        const val LENGTH = "length"
+        const val WEIGHT = "weight"
+    }
+    init {
+        changeType(LENGTH)
+    }
 
 }
 
