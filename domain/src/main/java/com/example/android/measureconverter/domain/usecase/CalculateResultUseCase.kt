@@ -22,9 +22,14 @@ class CalculateResultUseCase(private val userRepository: UnitRepository) {
             val res = BigDecimal(convertingData.toString()).divide(BigDecimal(it.convertingData), 10,RoundingMode.HALF_EVEN)
                 .stripTrailingZeros()
                 .toPlainString()
-            CalculatedResult(
+            if (res.toDouble() == 1.0) {
+                CalculatedResult(
+                    result = res,
+                    unitName = it.unitName,
+                )
+            } else CalculatedResult(
                 result = res,
-                unitName = it.pluralName
+                unitName = it.pluralName,
             )
         }
     }
