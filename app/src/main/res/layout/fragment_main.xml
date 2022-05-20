@@ -34,9 +34,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="@string/enter_amount"
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
+        app:expandedHintEnabled="false"
+        android:hint="@string/enter_amount"
         app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
         app:expandedHintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/radioGroupForTypeChanging">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:hint="0"
             android:id="@+id/inputAmount"
             android:layout_width="match_parent"
             android:layout_height="86dp"
