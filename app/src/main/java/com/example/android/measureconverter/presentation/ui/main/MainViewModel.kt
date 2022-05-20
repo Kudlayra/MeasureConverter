@@ -18,7 +18,9 @@ class MainViewModel(
     val calculateResultUseCase: CalculateResultUseCase
 ) : ViewModel() {
 
-    suspend fun getList(type: String): Flow<List<UnitToAdd>> = getUnitListUseCase.execute(type) //todo
+    suspend fun getList(type: String): Flow<List<UnitToAdd>> = getUnitListUseCase.execute(type)
+
+    suspend fun delete(unit: UnitToAdd) = deleteUnitUseCase.execute(unit)
 
     suspend fun getCalculatedResultList(
         unit: UnitToAdd,
@@ -38,10 +40,7 @@ class MainViewModel(
 
         private val _rightChosenUnit = MutableLiveData<String>()
     val rightChosenUnit: LiveData<String> = _rightChosenUnit
-//
-//    private val _result = MutableLiveData<String>()
-//    val result: LiveData<String> = _result
-//
+
     private val _stringWithType = MutableLiveData<String>()
     val stringWithType = _stringWithType
 
@@ -74,6 +73,10 @@ class MainViewModel(
 
     fun changeType(type: String) {
         _selectedType.value = type
+    }
+
+    suspend fun delete () {
+        deleteUnitUseCase.execute(currentUnit!!)
     }
 
     companion object {

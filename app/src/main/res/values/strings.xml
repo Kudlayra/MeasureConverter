@@ -18,4 +18,8 @@
     <string name="Enter_the_unit_name">Enter the unit name</string>
     <string name="Enter_the_unit_short_name">Enter the unit short name</string>
     <string name="Enter_data_for_calculating">Enter data for calculating</string>
+    <string name="Deleting">Deleting</string>
+    <string name="Do_you_really_want_to_delete_unit">Do you really want to delete unit</string>
+    <string name="No">No</string>
+    <string name="Yes">Yes</string>
 </resources>

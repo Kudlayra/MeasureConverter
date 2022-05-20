@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.measureconverter.app.UnitConverterApp
@@ -18,6 +19,7 @@ import com.example.android.measureconverter.R
 import com.example.android.measureconverter.databinding.FragmentMainBinding
 import com.example.android.measureconverter.presentation.adapter.AdapterForTable
 import com.example.android.measureconverter.presentation.adapter.AdapterForUnits
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -103,6 +105,9 @@ class MainFragment : Fragment() {
                     }
                 }
             }
+            floatingActionButtonDelete.setOnClickListener {
+                showDeleteUnitDialog()
+            }
         }
         lifecycle.coroutineScope.launch {
             viewModel.getList(viewModel.selectedType.value.toString()).collect() {
@@ -114,8 +119,23 @@ class MainFragment : Fragment() {
         }
 
     }
-    fun inputDataFromEditText(): String {
+    private fun inputDataFromEditText(): String {
         return if (binding.inputAmount.text.isNullOrEmpty()) "0.0"
         else binding.inputAmount.text.toString()
+    }
+
+    private fun showDeleteUnitDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.Deleting))
+            .setMessage("${getString(R.string.Do_you_really_want_to_delete_unit)} \"${viewModel.rightChosenUnit.value.toString()}\"")
+            .setNegativeButton(getString(R.string.No)) {_, _ ->
+            }
+            .setPositiveButton(getString(R.string.Yes)) {_, _ ->
+                lifecycle.coroutineScope.launch{
+                    viewModel.delete()
+                }
+            }
+            .show()  //todo
+
     }
 }
