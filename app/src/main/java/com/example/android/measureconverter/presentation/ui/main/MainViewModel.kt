@@ -27,8 +27,11 @@ class MainViewModel(
 
     var currentUnit: UnitToAdd? = null
 
-    private val _choicedType = MutableLiveData<String>() //todo
-    val selectedType = _choicedType
+    private val _selectedUnit = MutableLiveData<Int>()
+    val selectedUnit = _selectedUnit
+
+    private val _selectedType = MutableLiveData<String>() //todo
+    val selectedType = _selectedType
 
     private var _leftChosenUnit = MutableLiveData<String>()
     val leftChosenUnit: LiveData<String> = _leftChosenUnit
@@ -70,7 +73,7 @@ class MainViewModel(
     }
 
     fun changeType(type: String) {
-        _choicedType.value = type
+        _selectedType.value = type
     }
 
     companion object {
@@ -79,6 +82,9 @@ class MainViewModel(
     }
     init {
         changeType(LENGTH)
+    }
+    fun changeSelectedUnit(position: Int) {
+        _selectedUnit.value = position
     }
 
 }

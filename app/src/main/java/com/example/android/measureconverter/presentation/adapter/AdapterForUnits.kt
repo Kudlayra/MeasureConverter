@@ -6,18 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.measureconverter.data.source.local.Units
 import com.example.android.measureconverter.databinding.ItemForRecyclerviewBinding
 import com.example.android.measureconverter.domain.models.UnitToAdd
 
-class AdapterForUnits(private val onItemClicked: (UnitToAdd) -> Unit): ListAdapter<UnitToAdd, AdapterForUnits.AdapterViewHolder>(DiffCallback) {
+class AdapterForUnits(private val onItemClicked: (UnitToAdd, Int) -> Unit, private var selectedPosition: Int?): ListAdapter<UnitToAdd, AdapterForUnits.AdapterViewHolder>(DiffCallback) {
     class AdapterViewHolder(private val binding: ItemForRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(unit: UnitToAdd) {
             binding.textRecyclerView.text = unit.shortUnitName
         }
     }
 
-    private var selectedPosition = 0
     private var lastSelectedPosition = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterViewHolder {
@@ -28,9 +26,9 @@ class AdapterForUnits(private val onItemClicked: (UnitToAdd) -> Unit): ListAdapt
         holder.bind(getItem(position))
         val position = holder.adapterPosition
         holder.itemView.isActivated = selectedPosition == position
-        if (holder.itemView.isActivated) onItemClicked(getItem(position))
+        if (holder.itemView.isActivated) onItemClicked(getItem(position), position)
         holder.itemView.setOnClickListener {
-            onItemClicked(getItem(position))
+            onItemClicked(getItem(position), position)
             selectedPosition = position
             notifyItemChanged(lastSelectedPosition)
             notifyItemChanged(position)

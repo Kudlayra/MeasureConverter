@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
@@ -47,8 +48,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapterForUnitsTwo = AdapterForTable { }
-        val adapterForUnitsOne = AdapterForUnits { it ->
+        val adapterForUnitsOne = AdapterForUnits ({ it, position ->
             viewModel.currentUnit(it)
+            viewModel.changeSelectedUnit(position)
             lifecycle.coroutineScope.launch {
                 viewModel.getCalculatedResultList(it, inputDataFromEditText()).collect() {
                     adapterForUnitsTwo.submitList(it)
@@ -57,7 +59,7 @@ class MainFragment : Fragment() {
             if (inputDataFromEditText().toDouble() == 1.0) {
                 viewModel.changeUnitOnUi(it.unitName)
             } else viewModel.changeUnitOnUi(it.pluralName)
-        }
+        }, viewModel.selectedUnit.value ?: 0)
         with(binding) {
             recyclerViewLeft.adapter = adapterForUnitsOne
             recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context)
