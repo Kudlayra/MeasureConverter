@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
             if (inputDataFromEditText().toDouble() == 1.0) {
                 viewModel.changeUnitOnUi(it.unitName)
             } else viewModel.changeUnitOnUi(it.pluralName)
-        }, viewModel.selectedUnit.value ?: 0)
+        }, viewModel.selectedUnit.value ?: 0, viewModel.lastSelectedUnit.value ?: 0)
         with(binding) {
             recyclerViewLeft.adapter = adapterForUnitsOne
             recyclerViewLeft.layoutManager = LinearLayoutManager(this@MainFragment.context)

@@ -32,6 +32,9 @@ class MainViewModel(
     private val _selectedUnit = MutableLiveData<Int>()
     val selectedUnit = _selectedUnit
 
+    private  val _lastSelectedUnit = MutableLiveData<Int>()
+    val lastSelectedUnit = _lastSelectedUnit
+
     private val _selectedType = MutableLiveData<String>() //todo
     val selectedType = _selectedType
 
@@ -87,6 +90,7 @@ class MainViewModel(
         changeType(LENGTH)
     }
     fun changeSelectedUnit(position: Int) {
+        _lastSelectedUnit.value = _selectedUnit.value ?: 0
         _selectedUnit.value = position
     }
 
