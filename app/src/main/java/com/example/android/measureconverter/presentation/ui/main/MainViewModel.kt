@@ -18,6 +18,7 @@ class MainViewModel(
     val calculateResultUseCase: CalculateResultUseCase
 ) : ViewModel() {
 
+
     suspend fun getList(type: String): Flow<List<UnitToAdd>> = getUnitListUseCase.execute(type)
 
     suspend fun delete(unit: UnitToAdd) = deleteUnitUseCase.execute(unit)
@@ -28,6 +29,13 @@ class MainViewModel(
     ): Flow<List<CalculatedResult>> = calculateResultUseCase.execute(unit, amount.toDouble())
 
     var currentUnit: UnitToAdd? = null
+
+    private var _checkedRadioButton = MutableLiveData<String>()
+    val checkedRadioButton = _checkedRadioButton
+
+    init {
+        checkedRadioButton(LENGTH)
+    }
 
     private val _selectedUnit = MutableLiveData<Int>()
     val selectedUnit = _selectedUnit
@@ -44,27 +52,18 @@ class MainViewModel(
         private val _rightChosenUnit = MutableLiveData<String>()
     val rightChosenUnit: LiveData<String> = _rightChosenUnit
 
-    private val _stringWithType = MutableLiveData<String>()
-    val stringWithType = _stringWithType
-
-    fun changeLeftUnit(choice: String) {
-        _leftChosenUnit.value = choice
-    }
+//    private val _stringWithType = MutableLiveData<String>()
+//    val stringWithType = _stringWithType
+//
+//    fun changeLeftUnit(choice: String) {
+//        _leftChosenUnit.value = choice
+//    }
 
     fun changeUnitOnUi(choice: String) {
         _rightChosenUnit.value = choice
     }
 
-    fun changeTypeOnUi(type: String?) {
-        val unit = when (type) {
-            "length" -> "meters"
-            "weight" -> "grams"
-            "degrees" -> "degrees"
-            //todo
-            else -> "meters"
-        }
-        stringWithType.value = "How many $unit in one unit?"
-    }
+
 
     suspend fun addNewItem(type: String, name: String, shortName: String, calculatingData: String) {
         addNewUnitUseCase.execute(type, name, shortName, name, calculatingData)
@@ -92,6 +91,14 @@ class MainViewModel(
     fun changeSelectedUnit(position: Int) {
         _lastSelectedUnit.value = _selectedUnit.value ?: 0
         _selectedUnit.value = position
+    }
+
+//    fun changeTypeOnUi(string: String) {
+//        _stringWithType.value = string
+//    }
+
+    fun checkedRadioButton(type: String) {
+        _checkedRadioButton.value = type
     }
 
 }

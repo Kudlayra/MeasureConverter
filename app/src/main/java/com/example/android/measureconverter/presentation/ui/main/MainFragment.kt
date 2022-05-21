@@ -137,7 +137,7 @@ class MainFragment : Fragment() {
                     viewModel.delete()
                 }
             }
-            .show()  //todo
+            .show()
 
     }
     private fun hideKeyboard(context: Context, view: View) {

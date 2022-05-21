@@ -15,11 +15,22 @@
         style="@style/forText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/how_many_meters_in_one_unit"
+        android:text="@string/How_many_unit_in_one_unit"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/textInputCalculateData"
-        app:layout_constraintStart_toStartOf="@+id/textInputCalculateData"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputShortName" />
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/forText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Divide_your_unit_by_one"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputCalculateData"
@@ -27,13 +38,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:hint="@string/enter_unit_equals_here"
+        android:hint="@string/Enter_result_here"
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
         app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
+        app:hintTextColor="@color/light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputCalculateData"
@@ -55,6 +67,7 @@
         android:hint="@string/enter_new_unit_name"
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
+        app:hintTextColor="@color/light"
         app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:hint="@string/enter_new_unit_shortname"
+        app:hintTextColor="@color/light"
         app:boxStrokeColor="@color/black"
         app:endIconMode="clear_text"
         app:errorIconDrawable="@drawable/ic_baseline_error_outline_24"
@@ -178,13 +192,6 @@
             tools:layout_editor_absoluteX="49dp"
             tools:layout_editor_absoluteY="449dp" />
 
-        <RadioButton
-            android:id="@+id/radioButtonDegrees"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/degrees"
-            tools:layout_editor_absoluteX="52dp"
-            tools:layout_editor_absoluteY="503dp" />
     </RadioGroup>
 
 

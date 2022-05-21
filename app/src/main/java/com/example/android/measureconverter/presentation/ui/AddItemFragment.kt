@@ -2,7 +2,6 @@ package com.example.android.measureconverter.presentation.ui
 
 import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.R
 import com.example.android.measureconverter.databinding.FragmentAddItemBinding
@@ -29,7 +27,6 @@ class AddItemFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels {
         viewModelFactory
     }
-    private var checkedRadioButton: String = "length"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +40,7 @@ class AddItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.checkedRadioButton(viewModel.checkedRadioButton.value!!)
         binding.buttonToAdd.setOnClickListener {
             checkIsEmptyInputField()
             checkInputCalculateData()
@@ -61,19 +59,14 @@ class AddItemFragment : Fragment() {
             }
         }
         binding.radioButtonLength.setOnClickListener {
-            checkedRadioButton = binding.radioButtonLength.text.toString().lowercase()
-            viewModel.changeTypeOnUi(checkedRadioButton)
+            viewModel.checkedRadioButton(binding.radioButtonLength.text.toString().lowercase())
         }
         binding.radioButtonWeight.setOnClickListener {
-            checkedRadioButton = binding.radioButtonWeight.text.toString().lowercase()
-            viewModel.changeTypeOnUi(checkedRadioButton)
+            viewModel.checkedRadioButton(binding.radioButtonWeight.text.toString().lowercase())
         }
-        binding.radioButtonDegrees.setOnClickListener {
-            checkedRadioButton = binding.radioButtonDegrees.text.toString().lowercase()
-            viewModel.changeTypeOnUi(checkedRadioButton)
-        }
-        viewModel.stringWithType.observe(this.viewLifecycleOwner){ it ->
-            binding.textView3.text = it
+        viewModel.checkedRadioButton.observe(this.viewLifecycleOwner){
+            binding.textView3.text = getString(R.string.How_many_unit_in_one_unit, changeTypeOnUi())
+            binding.textView4.text = getString(R.string.Divide_your_unit_by_one, changeTypeOnUiTwo())
         }
         binding.addItemFragmentConstraintLayout.setOnClickListener {
             hideKeyboard(requireContext(), view)
@@ -85,11 +78,11 @@ class AddItemFragment : Fragment() {
     }
 
     private suspend fun getNewUnitData() {
-        val type = checkedRadioButton
+        val type = viewModel.checkedRadioButton.value
         val unitName = binding.inputName.text.toString()
         val shortName = binding.inputShortName.text.toString()
         val convertingData = binding.inputCalculateData.text.toString()
-        viewModel.addNewItem(type, unitName, shortName, convertingData)
+        viewModel.addNewItem(type!!, unitName, shortName, convertingData)
     }
 
     private fun checkIsEmptyInputField(): Boolean {
@@ -135,5 +128,21 @@ class AddItemFragment : Fragment() {
         val imm: InputMethodManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun changeTypeOnUi(): String {
+        return when (viewModel.checkedRadioButton.value) {
+            "length" -> "meters"
+            "weight" -> "grams"
+            else -> "meters"
+        }
+    }
+
+    private fun changeTypeOnUiTwo(): String {
+        return when (viewModel.checkedRadioButton.value) {
+            "length" -> "meter"
+            "weight" -> "gram"
+            else -> "meter"
+        }
     }
 }
