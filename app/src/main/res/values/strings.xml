@@ -22,4 +22,5 @@
     <string name="Do_you_really_want_to_delete_unit">Do you really want to delete unit</string>
     <string name="No">No</string>
     <string name="Yes">Yes</string>
+    <string name="Must_be_more_than_zero">Must be more than zero</string>
 </resources>

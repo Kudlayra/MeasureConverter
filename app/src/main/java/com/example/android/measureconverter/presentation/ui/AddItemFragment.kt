@@ -43,11 +43,14 @@ class AddItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonToAdd.setOnClickListener {
             checkIsEmptyInputField()
-            if (checkIsEmptyInputField()) {
+            checkInputCalculateData()
+            if (checkIsEmptyInputField() && checkInputCalculateData()) {
                 lifecycle.coroutineScope.launch {
                     getNewUnitData()
                 }
-                findNavController().navigate(R.id.action_addItemFragment2_to_mainFragment2)
+                Navigation.findNavController(view).apply {
+                    popBackStack()
+                }
             }
         }
         binding.cancelButton.setOnClickListener {
@@ -89,7 +92,6 @@ class AddItemFragment : Fragment() {
             if (inputName.text.isNullOrEmpty()) {
                 textInputName.isErrorEnabled = true
                 textInputName.error = getString(R.string.Enter_the_unit_name)
-                return false
             } else {
                 textInputName.isErrorEnabled = false
                 textInputName.error = null
@@ -97,7 +99,6 @@ class AddItemFragment : Fragment() {
             if (inputShortName.text.isNullOrEmpty()) {
                 textInputShortName.isErrorEnabled = true
                 textInputShortName.error = getString(R.string.Enter_the_unit_short_name)
-                return false
             } else { textInputShortName.isErrorEnabled = false
                 textInputShortName.error = null
             }
@@ -111,5 +112,21 @@ class AddItemFragment : Fragment() {
         }
         return true
     }
+    fun checkInputCalculateData(): Boolean {
+        if (!binding.inputCalculateData.text.isNullOrEmpty()) {
+            if (binding.inputCalculateData.text.toString().toDouble() <= 0) {
+                binding.textInputCalculateData.isErrorEnabled = true
+                binding.textInputCalculateData.error = getString(R.string.Must_be_more_than_zero)
+                return false
+            } else {
+                binding.textInputCalculateData.isErrorEnabled = false
+                binding.textInputCalculateData.error = null
+                return true
+            }
+        }
+        return false
+    }
 
 }
+
+// TODO после добавления нового юнита старый остается выделен
