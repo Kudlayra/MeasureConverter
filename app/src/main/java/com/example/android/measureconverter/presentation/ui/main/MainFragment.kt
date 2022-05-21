@@ -1,21 +1,20 @@
 package com.example.android.measureconverter.presentation.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
+import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.R
+import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.databinding.FragmentMainBinding
 import com.example.android.measureconverter.presentation.adapter.AdapterForTable
 import com.example.android.measureconverter.presentation.adapter.AdapterForUnits
@@ -108,6 +107,9 @@ class MainFragment : Fragment() {
             floatingActionButtonDelete.setOnClickListener {
                 showDeleteUnitDialog()
             }
+            mainFragmentConstraintLayout.setOnClickListener {
+                hideKeyboard(requireContext(), view)
+            }
         }
         lifecycle.coroutineScope.launch {
             viewModel.getList(viewModel.selectedType.value.toString()).collect() {
@@ -137,5 +139,10 @@ class MainFragment : Fragment() {
             }
             .show()  //todo
 
+    }
+    private fun hideKeyboard(context: Context, view: View) {
+        val imm: InputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

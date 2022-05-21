@@ -1,11 +1,13 @@
 package com.example.android.measureconverter.presentation.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.Navigation
@@ -73,6 +75,9 @@ class AddItemFragment : Fragment() {
         viewModel.stringWithType.observe(this.viewLifecycleOwner){ it ->
             binding.textView3.text = it
         }
+        binding.addItemFragmentConstraintLayout.setOnClickListener {
+            hideKeyboard(requireContext(), view)
+        }
     }
 
     companion object {
@@ -112,7 +117,7 @@ class AddItemFragment : Fragment() {
         }
         return true
     }
-    fun checkInputCalculateData(): Boolean {
+    private fun checkInputCalculateData(): Boolean {
         if (!binding.inputCalculateData.text.isNullOrEmpty()) {
             if (binding.inputCalculateData.text.toString().toDouble() <= 0) {
                 binding.textInputCalculateData.isErrorEnabled = true
@@ -126,7 +131,9 @@ class AddItemFragment : Fragment() {
         }
         return false
     }
-
+    private fun hideKeyboard(context: Context, view: View) {
+        val imm: InputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 }
-
-// TODO после добавления нового юнита старый остается выделен
