@@ -25,5 +25,7 @@
     <string name="Must_be_more_than_zero">Must be more than zero</string>
     <string name="How_many_unit_in_one_unit">How many %s in 1 unit?</string>
     <string name="Divide_your_unit_by_one">Divide your unit by 1 %s </string>
+    <string name="reacrete_database_dialog_title">Do you really want to restore the default settings?</string>
+    <string name="all_your_data_will_be_lost">All your data will be lost</string>
 
 </resources>

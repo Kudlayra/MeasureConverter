@@ -1,6 +1,8 @@
 package com.example.android.measureconverter.presentation.ui.main
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.android.measureconverter.MainActivity
 import com.example.android.measureconverter.R
 import com.example.android.measureconverter.app.UnitConverterApp
 import com.example.android.measureconverter.databinding.FragmentMainBinding
@@ -104,6 +107,9 @@ class MainFragment : Fragment() {
                     }
                 }
             }
+            floatingActionButtonRefresh.setOnClickListener {
+                showRecreateDatabaseDialog()
+            }
             floatingActionButtonDelete.setOnClickListener {
                 showDeleteUnitDialog()
             }
@@ -140,9 +146,34 @@ class MainFragment : Fragment() {
             .show()
 
     }
+
+    private fun showRecreateDatabaseDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.all_your_data_will_be_lost))
+            .setMessage(R.string.reacrete_database_dialog_title)
+            .setNegativeButton(getString(R.string.No)) {_, _ ->
+            }
+            .setPositiveButton(getString(R.string.Yes)) {_, _ ->
+                recreateDatabase(requireContext())
+            }
+            .show()
+    }
     private fun hideKeyboard(context: Context, view: View) {
         val imm: InputMethodManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun recreateDatabase(context: Context) {
+        context.deleteDatabase("db")
+        val intent = Intent(context, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+        if (context is Activity) {
+            (context as Activity).finish()
+        }
+        Runtime.getRuntime().exit(0)
+        //todo this function must be in the Domain module
+        //it delete the database and restart App to create database with default data
     }
 }

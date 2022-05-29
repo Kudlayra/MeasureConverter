@@ -18,4 +18,6 @@
     <string name="Do_you_really_want_to_delete_this_unit">Do you really want to delete this unit</string>
     <string name="Yes">Yes</string>
     <string name="Must_be_more_than_zero">Must be more than zero</string>
+    <string name="reacrete_database_dialog_title">Do you really want to restore the default settings?</string>
+    <string name="all_your_data_will_be_lost">All your data will be lost</string>
 </resources>
